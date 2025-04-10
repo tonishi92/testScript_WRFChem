@@ -1,0 +1,60 @@
+&share
+ wrf_core = 'ARW',
+ max_dom = 1,
+ start_date = 'YYYYs-MMs-DDs_HHs:00:00',
+ end_date   = 'YYYYe-MMe-DDe_HHe:00:00',
+ interval_seconds = 21600,
+ io_form_geogrid = 2,
+ opt_output_from_geogrid_path = './',
+ debug_level = 0,
+/
+
+&geogrid
+ parent_id         = 1,
+ parent_grid_ratio = 1,
+ i_parent_start    = 1,
+ j_parent_start    = 1,
+ e_we          = xNN,
+ e_sn          = yNN,
+ geog_data_res = '5m',
+ dx = DDx,
+ dy = DDy,
+ map_proj =  'polar',
+ ref_lat   = RefLat,
+ ref_lon   = RefLon,
+ truelat1  = RefLat,
+ truelat2  = 90,
+ stand_lon = RefLon,
+ geog_data_path = '/proju/wrf-chem/onishi/WRF_Forcing/geog',
+ opt_geogrid_tbl_path = './',
+ ref_x = x2NN,
+ ref_y = y2NN,
+/
+
+&ungrib
+ out_format = 'WPS',
+ prefix = 'FILE',
+/
+
+&metgrid
+ fg_name = 'FILE',
+ io_form_metgrid = 2,
+ opt_output_from_metgrid_path = './',
+ opt_metgrid_tbl_path = './',
+/
+
+&mod_levs
+ press_pa = 201300 , 200100 , 100000 ,
+             95000 ,  90000 ,
+             85000 ,  80000 ,
+             75000 ,  70000 ,
+             65000 ,  60000 ,
+             55000 ,  50000 ,
+             45000 ,  40000 ,
+             35000 ,  30000 ,
+             25000 ,  20000 ,
+             15000 ,  10000 ,
+              5000 ,   1000
+ /
+
+
