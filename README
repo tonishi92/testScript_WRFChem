@@ -8,6 +8,36 @@ you have 3 tar files
 Uncompress them where you want. The absolute directories to these utilities will be necessary 
 in "USER INPUTS" later. 
 
+-- install_tools.bash --
+  
+  * Preparatory bash script. 
+  * If you already have wesely & exo_coldens, MEGAN and MOZBC, you can move to "run_test_WRF.bash" now.
+  * After uncompressing wesely & exo_coldens, MEGAN and MOZBC, assign the following env. variables
+    - WESCOL_DIR : wesely & exo_coldens
+    - MEGAN_DIR  : MEGAN 
+    - MOZBC_DIR  : MOZBC 
+
+  * NETCDF_DIR
+    - Directory for NETCDF. Since NETCDF module was split into NETCDF_C and NETCDF_Fortran, 
+    - it is necessary to merge NETCDF_FORTRAN and NETCDF_C into your NETCDF_DIR. 
+      /home/onishi/NETCDF_DIR2/ is a directory where netcdf-c/4.7.4 and netcdf-fortran/4.5.3 are merged.
+    - If you want to merge different modules, run the following script
+
+-------------------------------------------------------------------------------------
+#!/bin/bash
+module load netcdf-c/<your choice>
+module load netcdf-fortran/<your choice>
+export NETCDF_DIR=$HOME/netcdf_merged
+rm -rf $NETCDF_DIR
+mkdir -p $NETCDF_DIR/include $NETCDF_DIR/lib
+
+ln -sf ${NETCDF_C_ROOT}/include/* $NETCDF_DIR/include/
+ln -sf ${NETCDF_FORTRAN_ROOT}/include/* $NETCDF_DIR/include/
+ln -sf ${NETCDF_C_ROOT}/lib/* $NETCDF_DIR/lib/
+ln -sf ${NETCDF_FORTRAN_ROOT}/lib/* $NETCDF_DIR/lib/
+--------------------------------------------------------------------------------------
+
+    - With this script, you have $HOME/netcdf_merged, to which you can make a line "NETCDF_DIR".
 
 -- run_test_WRF.bash --
   

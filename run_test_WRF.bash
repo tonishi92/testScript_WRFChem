@@ -39,40 +39,80 @@ module_netcdff="netcdf-fortran/4.5.3"
 module_hdf5="hdf5/1.10.7"
 module_jasper="jasper/2.0.32"
 
-NETCDF_DIR="/home/onishi/NETCDF_DIR2/"
+#--- set NETCDF_DIR.
+#    You can use /home/onishi/NETCDF_DIR2/
+#    NETCDF_DIR="/home/onishi/NETCDF_DIR2/"
+#    OR 
+#    set your own directory defined in "install_tools.bash"
+NETCDF_DIR="/path/to/merged/NETCDF/directory"
+
 
 #------------------------------------------------------------------------------
-
 
 LAUNCH_DIR=$PWD
 echo "run_test_WRF.bash is launched in $LAUNCH_DIR"
 
-WRF_DIR="/proju/wrf-chem/onishi/WRF4/WRF_LATMOS/"
+#---- WRF_DIR         : Absolute path to the top directory of your WRF/WRF-Chem codes to test
+#     e.g.) WRF_DIR="/proju/wrf-chem/${USER}/WRF4/WRF_LATMOS/"
+WRF_DIR="/path/to/WRF/directory/"
 echo "wrf.exe in $WRF_DIR"
 
-WPS_DIR="/home/onishi/WPS/"
+#---- WPS_DIR         : Absolute path to the top directory of WPS codes
+#     e.g.) WPS_DIR="/home/${USER}/WPS/"
+WPS_DIR="/path/to/WPS/directory/"
 echo "wps exe files in $WPS_DIR"
 
-WPSdomain_DIR="/proju/wrf-chem/onishi/WPS_domains/TEST2"
+#---- WPSdomain_DIR   : Absolute path to a directory where you run wps (ungrib.exe,geogrid.exe,metgrid.exe)
+#     e.g.) WPSdomain_DIR="/proju/wrf-chem/${USER}/WPS_domains/TEST2"
+WPSdomain_DIR="/path/to/your/WPS/domain/where/you/run/wps/"
 echo "WPS domain directory : $WPSdomain_DIR"
 
-WRFrun_DIR="/proju/wrf-chem/onishi/WRFruns/WRFrun_Test/"
+#---- WRFrun_DIR      : Absolute path to a directory where you run wrf.exe (working directory)
+#     e.g.) WRFrun_DIR="/proju/wrf-chem/${USER}/WRFruns/WRFrun_Test/"
+WRFrun_DIR="/path/to/directory/where/you/run/wrf.exe/or/a/batch/script/"
 echo "WRF run directory : $WRFrun_DIR"
 
-MEGAN_DIR="/proju/wrf-chem/onishi/TBD/MEGAN/WRFrun_TEST/"
-MEGAN_exe="/proju/wrf-chem/onishi/TBD/MEGAN/MEGAN/megan_bio_emiss"
-MEGAN_data_DIR="/proju/wrf-chem/onishi/MEGAN/DATA_TOTAL"
+#---- MEGAN_DIR       : Absolute path to a directory where you run your executable "megan_bio_emiss"
+#     e.g.) MEGAN_DIR="/proju/wrf-chem/${USER}/MEGAN/WRFrun_TEST/"
+MEGAN_DIR="/path/to/directory/where/you/run/your/executable/megan_bio_emiss/"
 
-WESCOL_DIR="/proju/wrf-chem/onishi/TBD/wes-coldens/"
-wesely_exe="/proju/wrf-chem/onishi/TBD/wes-coldens/wesely"
-exo_coldens_exe="/proju/wrf-chem/onishi/TBD/wes-coldens/exo_coldens"
+#---- MEGAN_exe       : Absolute path to your megan executable "megan_bio_emiss"
+#     e.g.) MEGAN_exe="/proju/wrf-chem/${USER}/MEGAN/MEGAN/megan_bio_emiss"
+MEGAN_exe="/path/to/your/executable/megan_bio_emiss"
 
-MOZBC_DIR="/proju/wrf-chem/onishi/TBD/MOZBC/MOZBC/MOZBC_TEST/"
-mozbc_exe="/proju/wrf-chem/onishi/TBD/MOZBC/MOZBC/mozbc"
-mozbc_data_DIR="/proju/wrf-chem/onishi/MOZART/"
-mozbc_data="cesm-ALPACA-0001.nc"
+#---- MEGAN_data_DIR  : Absolute path to a directory where you keep input data files for MEGAN
+#     e.g.) MEGAN_data_DIR="/proju/wrf-chem/${USER}/MEGAN/DATA_TOTAL"
+MEGAN_data_DIR="/path/to/directory/where/you/keep/MEGAN/input/files/"
 
+#---- WESCOL_DIR      : Absolute path to a directory where you run "wesely" and "exo_coldens"
+#     e.g.) WESCOL_DIR="/proju/wrf-chem/${USER}/wes-coldens/"
+WESCOL_DIR="/path/to/directory/where/you/run/wesely/and/exo_coldens/"
+
+#---- wesely_exe      : Absolute path to your wesely executable "wesely"
+#     e.g.) wesely_exe="/proju/wrf-chem/${USER}/wes-coldens/wesely"
+wesely_exe="/path/to/your/executable/wesely"
+
+#---- exo_coldens_exe : Absolute path to your exo_coldens executable "exo_coldens"
+#     e.g.) exo_coldens_exe="/proju/wrf-chem/${USER}/wes-coldens/exo_coldens"
+exo_coldens_exe="/path/to/your/executable/exo_coldens"
+
+#---- MOZBC_DIR       : Absolute path to a directory where you run your executable "mozbc"
+#     e.g.) MOZBC_DIR="/proju/wrf-chem/${USER}/MOZBC/MOZBC_TEST/"
+MOZBC_DIR="/path/to/directory/where/you/run/mozbc/"
+
+#---- mozbc_exe       : Absolute path to your mozbc executable "mozbc"
+#     e.g.) mozbc_exe="/proju/wrf-chem/${USER}/MOZBC/mozbc"
+mozbc_exe="/path/to/your/executable/mozbc"
+
+#---- mozbc_data      : Absolute path to input data files for "mozbc"
+#     You need to download, for ex. from https://www.acom.ucar.edu/cesm/subset.shtml
+#     e.g.) mozbc_data="/proju/wrf-chem/${USER}/MOZART/cesm-ALPACA-0001.nc"
+#       
+mozbc_data="/path/to/MOZBC/input/files/for/example/cesm-ALPACA-0001.nc"
+
+#---- wrfchemi_python : Absolute path to a python script to create wrfchemi files (1)
 wrfchemi_python="${LAUNCH_DIR}/create_wrfchemi.py3"
+#---- wrfchemi_DIR    : Absolute path to a directory where wrfchemi files will be created.
 wrfchemi_DIR="${LAUNCH_DIR}/WRFrun_TEST/"
 
 
@@ -83,19 +123,37 @@ wrfchemi_DIR="${LAUNCH_DIR}/WRFrun_TEST/"
 STARTDATETIME="2022/02/02 00:00:00"
 ENDDATETIME="2022/02/04 00:00:00"
 
-xNN=50
+USE_POLAR=1
+USE_LAMBERT=0
+
+if [[ $USE_POLAR -eq 1 ]]; then
+  xNN=50
+  yNN=50
+  DDx=20000
+  RefLat=65
+  RefLon=-148
+  TrueLat1=${RefLat}
+  TrueLat2=90
+  StandLon=${RefLon}
+  map_proj="polar"
+fi
+
+if [[ $USE_LAMBERT -eq 1 ]]; then
+  xNN=50
+  yNN=51
+  DDx=50000
+  RefLat=35
+  RefLon=0
+  TrueLat1=${RefLat}
+  TrueLat2=${RefLat}
+  StandLon=${RefLon}
+  map_proj="lambert"
+fi
+
 echo "cell numbers in west-east : $xNN"
-
-yNN=50
 echo "cell numbers in south-north : $yNN"
-
-DDx=20000
 echo "cell resolution : $(($DDx/1000)) km"  
-
-RefLat=65
 echo "ref_lat : $RefLat"
-
-RefLon=-148
 echo "ref_lon : $RefLon"
 
 TIMESTEP=$(($DDx/1000 * 3))
@@ -411,6 +469,7 @@ if [ $USE_DEFAULT_NAMELIST -eq 1 ]; then
   x2NN=$(echo "scale=1; $xNN / 2" | bc -l)
   y2NN=$(echo "scale=1; $yNN / 2" | bc -l)
 
+  sed -i "s/MAP_PROJ/$map_proj/" $WPSnamelist
   sed -i "s/YYYYs/$YYYYs/" $WPSnamelist
   sed -i "s/MMs/$MMs/" $WPSnamelist
   sed -i "s/DDs/$DDs/" $WPSnamelist
@@ -425,6 +484,9 @@ if [ $USE_DEFAULT_NAMELIST -eq 1 ]; then
   sed -i "s/y2NN/$y2NN/" $WPSnamelist
   sed -i "s/RefLat/$RefLat/" $WPSnamelist
   sed -i "s/RefLon/$RefLon/" $WPSnamelist
+  sed -i "s/TrueLat1/$TrueLat1/" $WPSnamelist
+  sed -i "s/TrueLat2/$TrueLat2/" $WPSnamelist
+  sed -i "s/StandLon/$StandLon/" $WPSnamelist
   sed -i "s/DDx/$DDx/" $WPSnamelist
   sed -i "s/DDy/$DDx/" $WPSnamelist
 
@@ -1128,8 +1190,8 @@ do_bc     = .true.
 do_ic     = .true.
 domain    = 1,
 dir_wrf   = '${WRFrun_DIR}'
-dir_moz   = '${mozbc_data_DIR}'
-fn_moz    = '${mozbc_data}'
+dir_moz   = '$(dirname "$mozbc_data")'
+fn_moz    = '$(basename "$mozbc_data")'
 moz_var_suffix = ''
 def_missing_var = .true.
 

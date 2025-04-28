@@ -2,17 +2,25 @@
 
 PID=${BASHPID}
 
-
+#
+# Set to "1" if you want to install the tool
+#
+MERGE_NETCDF_DIR=0
 INSTALL_WESELY_EXO_COLDENS=1
 INSTALL_MEGAN=1
 INSTALL_MOZBC=1
-
-
-WESCOL_DIR="/proju/wrf-chem/onishi/TBD/wes-coldens/"
-MEGAN_DIR="/proju/wrf-chem/onishi/TBD/MEGAN/"
-MOZBC_DIR="/proju/wrf-chem/onishi/TBD/MOZBC/"
-
-
+#
+# Directories of tools 
+#
+WESCOL_DIR="/path/to/directory/for/wes-coldens/"
+MEGAN_DIR="/path/to/directory/for/MEGAN/"
+MOZBC_DIR="/path/to/directory/for/MOZBC/"
+#WESCOL_DIR="/proju/wrf-chem/onishi/TBD/wes-coldens/"
+#MEGAN_DIR="/proju/wrf-chem/onishi/TBD/MEGAN/"
+#MOZBC_DIR="/proju/wrf-chem/onishi/TBD/MOZBC/"
+#
+# modules to be used for installations and simulations
+#
 module_intel="intel/19.0.8.324"
 module_openmpi="openmpi/4.0.7"
 module_netcdfc="netcdf-c/4.7.4"
@@ -20,10 +28,35 @@ module_netcdff="netcdf-fortran/4.5.3"
 module_hdf5="hdf5/1.10.7"
 module_jasper="jasper/2.0.32"
 
-export NETCDF_DIR="/home/onishi/NETCDF_DIR2/"
+#
+# set NETCDF_DIR 
+export NETCDF_DIR="path/to/your/merged/NETCDF_DIR/"
+# OR you can use the following path 
+#export NETCDF_DIR="/home/onishi/NETCDF_DIR2/"
+
+#-----------------------------------------------------------------------
+#
+#  MERGE NETCDF include and lib to one place "NETCDF_DIR"
+#
+#-----------------------------------------------------------------------
+
+if [[ ${MERGE_NETCDF_DIR} -eq 1 ]]; then
+  module purge
+  module load  $module_netcdfc
+  module load  $module_netcdff
+  export NETCDF_DIR=$HOME/netcdf_merged
+  rm -rf $NETCDF_DIR
+  mkdir -p $NETCDF_DIR/include $NETCDF_DIR/lib
+
+  ln -sf ${NETCDF_C_ROOT}/include/* ${NETCDF_DIR}/include/
+  ln -sf ${NETCDF_FORTRAN_ROOT}/include/* ${NETCDF_DIR}/include/
+  ln -sf ${NETCDF_C_ROOT}/lib/* ${NETCDF_DIR}/lib/
+  ln -sf ${NETCDF_FORTRAN_ROOT}/lib/* ${NETCDF_DIR}/lib/
+fi
 
 LAUNCH_DIR=$PWD
 echo "install_tools.bash is launched in $LAUNCH_DIR"
+
 #------------------------------------------------------------------------
 #
 #  INSTALL wesely and exo_coldens 
