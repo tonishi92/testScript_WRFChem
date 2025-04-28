@@ -1,0 +1,59 @@
+
+After "git clone" from https://github.com/tonishi92/testScript_WRFChem.git, 
+you have 3 tar files
+  * MEGAN.tar
+  * MOZBC.tar
+  * wes-coldens.tar
+
+Uncompress them where you want. The absolute directories to these utilities will be necessary 
+in "USER INPUTS" later. 
+
+
+-- run_test_WRF.bash --
+  
+  * Main bash script. 
+  * It is necessary to compile wesely & exo_coldens, MEGAN and MOZBC, 
+    by launching the script "install_tools.bash". See below for more.
+
+  * USER INPUTS (ALL executable files and directories must in an absolute path)
+    - WRF_DIR         : Absolute path to the top directory of your WRF/WRF-Chem codes to test
+    - WPS_DIR         : Absolute path to the top directory of WPS codes
+
+    - WPSdomain_DIR   : Absolute path to a directory where you run wps (ungrib.exe,geogrid.exe,metgrid.exe)
+    - WRFrun_DIR      : Absolute path to a directory where you run wrf.exe (working directory)
+    
+    - MEGAN_DIR       : Absolute path to a directory where you run your executable "megan_bio_emiss"
+    - MEGAN_exe       : Absolute path to your megan executable "megan_bio_emiss"
+    - MEGAN_data_DIR  : Absolute path to a directory where you keep input data files for MEGAN
+
+    - WESCOL_DIR      : Absolute path to a directory where you run "wesely" and "exo_coldens"
+    - wesely_exe      : Absolute path to your wesely executable "wesely"
+    - exo_coldens_exe : Absolute path to your exo_coldens executable "exo_coldens"
+ 
+    - MOZBC_DIR       : Absolute path to a directory where you run your executable "mozbc"
+    - mozbc_exe       : Absolute path to your mozbc executable "mozbc"
+    - mozbc_data      : Absolute path to input data files for "mozbc"
+                        For the default period from 2022/02/02 00:00:00 to 2022/02/04 00:00:00,
+                        WACCM data is available in  
+
+    - wrfchemi_python : Absolute path to a python script to create wrfchemi files (1)
+    - wrfchemi_DIR    : Absolute path to a directory where wrfchemi files will be created.
+
+    Notes:
+        (1) a default script "create_wrfchemi.py3" is provided in this repository
+
+  * Parameters for a test domain
+    - STARTDATETIME      : date and time of the beginning of a test run 
+    - ENDDATETIME        : date and time of the end of a test run
+    - xNN                : Number of cells in west-east direction
+    - yNN                : Number of cells in south-north direction
+    - DDx                : Cell resolution in m
+    - RefLat             : Reference latitude
+    - RefLon             : Reference longitude
+    - TrueLat1           : True latitude 1
+    - TrueLat2           : True latitude 2
+    - StandLon           : Standard Longitude
+    - map_proj           : "polar" or "lambert"
+
+  
+ 
